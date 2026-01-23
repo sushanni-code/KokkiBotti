@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txvMenuPlanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ruokalista"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txvMenuPlanner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Viikko 1 -->
+            <TextView
+                android:id="@+id/txvWeekOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Viikko 1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/monday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/tuesday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/wednesday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/thursday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/friday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/saturday_1" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/sunday_1" />
+
+
+            <!-- Viikko 2 -->
+            <TextView
+                android:id="@+id/txvWeekTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Viikko 2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/monday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/tuesday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/wednesday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/thursday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/friday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/saturday_2" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/sunday_2" />
+
+            <!-- Viikko 3 -->
+            <TextView
+                android:id="@+id/txvWeekThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Viikko 3"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/monday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/tuesday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/wednesday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/thursday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/friday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/saturday_3" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/sunday_3" />
+
+            <!-- Viikko 4 -->
+            <TextView
+                android:id="@+id/txvWeekFour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Viikko 4"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/monday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/tuesday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/wednesday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/thursday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/friday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/saturday_4" />
+            <include layout="@layout/week_day_spinner" android:id="@+id/sunday_4" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DrawerLayout on juurielementti, joka mahdollistaa sivusta vedettävän navigaatiovalikon. -->
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <!-- PÄÄSISÄLTÖ: Tämä LinearLayout sisältää kaiken, mikä näkyy normaalisti ruudulla. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- AppBarLayout on säiliö yläpalkille (Toolbar). -->
+        <!-- app:liftOnScroll="true" lisää yläpalkkiin hienovaraisen varjon, kun sisältöä selataan. -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+            <!-- Toolbar on sovelluksen yläpalkki, joka näyttää sivun otsikon ja hampurilaisvalikon. -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:titleTextColor="?attr/colorOnPrimary" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- FragmentContainerView on dynaaminen säiliö, jonka sisällä eri sivujen (Fragment) sisältö näytetään. -->
+        <!-- app:navGraph kertoo, mitä navigaatiograafia tämä säiliö käyttää. -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" 
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/mobile_navigation" />
+
+        <!-- BottomNavigationView on sovelluksen alareunan navigaatiopalkki. -->
+        <!-- style-attribuutti ottaa käyttöön custom-tyylin, joka korostaa aktiivista välilehteä. -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.App.BottomNavigationView" 
+            app:menu="@menu/bottom_nav_menu" />
+
+    </LinearLayout>
+
+    <!-- SIVUVALIKKO (DRAWER): Tämä NavigationView on itse sivusta liukuva valikko. -->
+    <!-- android:layout_gravity="start" määrittää, että se liukuu esiin vasemmasta reunasta. -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/drawer_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

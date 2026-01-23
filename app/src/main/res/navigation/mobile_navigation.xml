@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_recipes">
+
+    <!-- Bottom Navigation Destinations -->
+    <fragment
+        android:id="@+id/navigation_recipes"
+        android:name="com.example.kokkibotti.RecipesFragment"
+        android:label="Reseptit"
+        tools:layout="@layout/fragment_recipes" />
+
+    <fragment
+        android:id="@+id/navigation_planner"
+        android:name="com.example.kokkibotti.PlannerFragment"
+        android:label="Ruokalista"
+        tools:layout="@layout/fragment_planner" />
+
+    <fragment
+        android:id="@+id/navigation_inspiration"
+        android:name="com.example.kokkibotti.InspirationFragment"
+        android:label="Inspiraatio"
+        tools:layout="@layout/fragment_inspiration" />
+
+    <!-- Drawer Navigation Destinations -->
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.kokkibotti.SettingsFragment"
+        android:label="Asetukset"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.kokkibotti.AboutFragment"
+        android:label="Tietoja"
+        tools:layout="@layout/fragment_about" />
+
+</navigation>

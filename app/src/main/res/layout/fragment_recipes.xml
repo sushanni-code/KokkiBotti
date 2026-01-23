@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipesFragment">
+
+    <!-- RecyclerView on tehokas komponentti suurten, selattavien listojen näyttämiseen. -->
+    <!-- Se on sidottu täyttämään koko ruudun. -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TYHJÄN TILAN NÄKYMÄ (EMPTY STATE) -->
+    <!-- Tämä LinearLayout näytetään vain, jos reseptilista on tyhjä. -->
+    <!-- Se on keskitetty ruudulle ConstraintLayout-sääntöjen avulla. -->
+    <!-- android:visibility="gone" piilottaa sen oletuksena. -->
+    <LinearLayout
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"> <!-- tools:visibility tekee siitä näkyvän vain esikatselussa. -->
+
+        <!-- Kuvake, jonka väri on määritelty teemassa. -->
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_menu_edit" 
+            app:tint="@color/accent_green"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Ei vielä reseptejä"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Lisää uusi painamalla + -painiketta"/>
+
+    </LinearLayout>
+
+    <!-- FloatingActionButton on "kelluva" toimintopainike reseptin lisäämistä varten. -->
+    <!-- Se on sidottu näytön oikeaan alakulmaan. -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tooltipText="Lisää uusi resepti" 
+        app:backgroundTint="@color/accent_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

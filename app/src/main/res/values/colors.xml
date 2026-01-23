@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Uusi väripaletti (käyttäjän määrittelemä) -->
+    <color name="primary_green">#454C3B</color> <!-- Pääväri (tumma, maanläheinen vihreä) -->
+    <color name="accent_green">#96A580</color> <!-- Korostusväri (vaaleampi, pehmeä vihreä) -->
+
+    <!-- Tekstin ja ikonien värit -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Taustavärit -->
+    <color name="light_background">#F5F5F5</color> <!-- Vaalea tila -->
+    <color name="dark_background">#121212</color> <!-- Tumma tila (lähes musta) -->
+</resources>
