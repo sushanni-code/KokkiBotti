@@ -26,6 +26,8 @@ import coil.load
 import kotlinx.coroutines.launch
 
 // Fragmentti, joka hakee ja näyttää satunnaisen reseptin inspiraatiota varten
+
+
 class InspirationFragment : Fragment() {
 
     // Jaettu ViewModel activity-tasolla, jotta data säilyy fragmenttien välillä

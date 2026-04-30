@@ -54,7 +54,8 @@ class MainActivity : AppCompatActivity() {
         val topLevelDestinations = setOf(
             R.id.navigation_recipes,
             R.id.navigation_planner,
-            R.id.navigation_inspiration
+            R.id.navigation_inspiration,
+            R.id.nav_ai
         )
 
         // Luodaan AppBarConfiguration drawerin ja pääkohteiden kanssa
