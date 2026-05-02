@@ -20,8 +20,16 @@ interface PlannedMealDao {
     fun getAllPlannedMeals(): LiveData<List<PlannedMeal>>
 
     // Hakee tietyn päivän reseptin viikon ja viikonpäivän perusteella
-    // Liitetään recipes-taulu ja planned_meals-taulu reseptin ID:n avulla
-    @Query("SELECT r.* FROM recipes r JOIN planned_meals p ON r.id = p.recipeId WHERE p.weekNumber = :week AND p.dayOfWeek = :day")
+    // Käytetään LEFT JOINia, jotta "Syö ulkona" (id = -1) ja poistetut reseptit voidaan käsitellä
+    @Query("""
+        SELECT p.recipeId AS id, 
+               CASE WHEN p.recipeId = -1 THEN 'Syö ulkona' ELSE r.name END AS name,
+               COALESCE(r.ingredients, '[]') AS ingredients,
+               COALESCE(r.instructions, '') AS instructions
+        FROM planned_meals p
+        LEFT JOIN recipes r ON p.recipeId = r.id
+        WHERE p.weekNumber = :week AND p.dayOfWeek = :day
+    """)
     fun getRecipeForDay(week: Int, day: Int): LiveData<Recipe?>
 
     // Poistaa kaikki suunnitelmat, joissa käytetään tiettyä reseptiä
