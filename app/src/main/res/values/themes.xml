@@ -21,10 +21,14 @@
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+        <item name="backgroundTint">@color/primary_green</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="itemRippleColor">@color/white</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/primary_green</item>
-        <item name="colorOnPrimary">@color/accent_green</item>
+        <item name="colorSecondaryContainer">@color/accent_green</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
     </style>
 </resources>
