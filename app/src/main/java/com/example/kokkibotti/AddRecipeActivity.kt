@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -115,22 +116,36 @@ class AddRecipeActivity : AppCompatActivity() {
         val recipeName = recipeNameEditText.text.toString()
         val instructions = instructionsEditText.text.toString()
 
-        // Varmistetaan, että reseptillä on nimi, ohjeet ja vähintään yksi ainesosa.
-        if (recipeName.isNotBlank() && ingredients.isNotEmpty() && instructions.isNotBlank()) {
-            // Luodaan uusi Recipe-olio. Käytetään nimettyjä argumentteja selkeyden ja
-            // turvallisuuden vuoksi, koska Recipe-luokalla on nyt myös id-kenttä.
-            val newRecipe = Recipe(
-                name = recipeName,
-                ingredients = ingredients,
-                instructions = instructions
-            )
-
-            // Luodaan Intent, johon pakataan uusi resepti ja palautetaan se onnistumisen merkiksi.
-            val resultIntent = Intent()
-            resultIntent.putExtra("NEW_RECIPE", newRecipe)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish() // Suljetaan tämä aktiviteetti ja palataan edelliseen.
+        // Validoidaan syötteet ja näytetään toast-ilmoitukset virhetilanteissa
+        if (recipeName.isBlank()) {
+            Toast.makeText(this, "Lisää reseptin nimi", Toast.LENGTH_SHORT).show()
+            return
         }
+        
+        if (ingredients.isEmpty()) {
+            Toast.makeText(this, "Lisää reseptiin ainesosia", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (instructions.isBlank()) {
+            Toast.makeText(this, "Lisää reseptin ohjeet", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Jos kaikki kunnossa, luodaan resepti ja ilmoitetaan onnistumisesta
+        val newRecipe = Recipe(
+            name = recipeName,
+            ingredients = ingredients,
+            instructions = instructions
+        )
+
+        Toast.makeText(this, "Reseptin tallennus onnistui!", Toast.LENGTH_SHORT).show()
+
+        // Luodaan Intent, johon pakataan uusi resepti ja palautetaan se onnistumisen merkiksi.
+        val resultIntent = Intent()
+        resultIntent.putExtra("NEW_RECIPE", newRecipe)
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish() // Suljetaan tämä aktiviteetti ja palataan edelliseen.
     }
 }
 
