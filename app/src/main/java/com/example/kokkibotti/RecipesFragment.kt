@@ -32,7 +32,13 @@ class RecipesFragment : Fragment() {
     // Launcher uuden reseptin lisäämistä varten AddRecipeActivitysta
     private val addRecipeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.getParcelableExtra<Recipe>("NEW_RECIPE")?.let {
+            val newRecipe = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                result.data?.getParcelableExtra("NEW_RECIPE", Recipe::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                result.data?.getParcelableExtra<Recipe>("NEW_RECIPE")
+            }
+            newRecipe?.let {
                 recipeViewModel.addRecipe(it) // Lisää uusi resepti ViewModeliin
             }
         }
@@ -41,7 +47,12 @@ class RecipesFragment : Fragment() {
     // Launcher olemassa olevan reseptin muokkaamista varten RecipeDetailActivitysta
     private val editRecipeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val editedRecipe = result.data?.getParcelableExtra<Recipe>("EDITED_RECIPE")
+            val editedRecipe = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                result.data?.getParcelableExtra("EDITED_RECIPE", Recipe::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                result.data?.getParcelableExtra<Recipe>("EDITED_RECIPE")
+            }
             if (editedRecipe != null) {
                 recipeViewModel.updateRecipe(editedRecipe) // Päivittää reseptin ViewModelissa
             }

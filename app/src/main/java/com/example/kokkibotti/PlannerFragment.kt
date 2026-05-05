@@ -1,14 +1,18 @@
 package com.example.kokkibotti
 
 import android.animation.ObjectAnimator
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -23,6 +27,21 @@ class PlannerFragment : Fragment() {
     // Hakee RecipeViewModelin, jota käytetään ateriatietojen hallintaan
     private val recipeViewModel: RecipeViewModel by activityViewModels {
         RecipeViewModelFactory(requireActivity().application)
+    }
+
+    // Launcher reseptin tarkastelua ja mahdollista muokkausta varten
+    private val viewRecipeResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val editedRecipe = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                result.data?.getParcelableExtra("EDITED_RECIPE", Recipe::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                result.data?.getParcelableExtra<Recipe>("EDITED_RECIPE")
+            }
+            if (editedRecipe != null) {
+                recipeViewModel.updateRecipe(editedRecipe)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -92,6 +111,19 @@ class PlannerFragment : Fragment() {
                 // Kuunnellaan LiveDataa, jotta valittu resepti näkyy automaattisesti
                 recipeViewModel.getRecipeForDay(weekNumber, dayOfWeek).observe(viewLifecycleOwner, Observer { recipe ->
                     recipeNameTextView.text = recipe?.name ?: "Valitse resepti"
+                    
+                    val btnViewRecipe = dayView.findViewById<ImageButton>(R.id.btn_view_recipe)
+                    if (recipe != null && recipe.id != -1) {
+                        btnViewRecipe.isVisible = true
+                        btnViewRecipe.setOnClickListener {
+                            val intent = Intent(requireContext(), RecipeDetailActivity::class.java).apply {
+                                putExtra("RECIPE", recipe)
+                            }
+                            viewRecipeResultLauncher.launch(intent)
+                        }
+                    } else {
+                        btnViewRecipe.isVisible = false
+                    }
                 })
 
                 // Päivän näkymän klikkauksen käsittely reseptin valintaa varten
