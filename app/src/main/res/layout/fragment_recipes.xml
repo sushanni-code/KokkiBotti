@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".RecipesFragment">
 
+    <!-- Hakukenttä -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/current_day_background"
+        app:iconifiedByDefault="false"
+        app:queryHint="Hae reseptiä sanalla tai eineksellä..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- RecyclerView on tehokas komponentti suurten, selattavien listojen näyttämiseen. -->
     <!-- Se on sidottu täyttämään koko ruudun. -->
     <androidx.recyclerview.widget.RecyclerView
@@ -15,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/searchView" />
 
     <!-- TYHJÄN TILAN NÄKYMÄ (EMPTY STATE) -->
     <!-- Tämä LinearLayout näytetään vain, jos reseptilista on tyhjä. -->

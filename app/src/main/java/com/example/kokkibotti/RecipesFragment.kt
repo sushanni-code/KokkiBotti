@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,6 +24,8 @@ class RecipesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var emptyView: LinearLayout
+    private var allRecipesList = emptyList<Recipe>()
+    private var currentQuery = ""
 
     // ViewModel reseptien hallintaan
     private val recipeViewModel: RecipeViewModel by activityViewModels {
@@ -76,14 +79,21 @@ class RecipesFragment : Fragment() {
         emptyView = view.findViewById(R.id.empty_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Hakutoiminnallisuuden alustus
+        val searchView = view.findViewById<SearchView>(R.id.searchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                currentQuery = newText ?: ""
+                updateFilteredList()
+                return true
+            }
+        })
+
         // Kuunnellaan reseptilistaa ViewModelista
         recipeViewModel.allRecipes.observe(viewLifecycleOwner, Observer { recipes ->
-            emptyView.isVisible = recipes.isNullOrEmpty()        // Näytetään tyhjä näkymä, jos lista on tyhjä
-            recyclerView.isVisible = !recipes.isNullOrEmpty()   // Näytetään RecyclerView vain, jos listalla on reseptejä
-
-            // Luodaan adapteri ja asetetaan RecyclerViewiin
-            val adapter = RecipeAdapter(recipes.toMutableList(), editRecipeResultLauncher)
-            recyclerView.adapter = adapter
+            allRecipesList = recipes ?: emptyList()
+            updateFilteredList()
         })
 
         // Liitetään pyyhkäisytoiminto reseptien poistamiseen
@@ -96,6 +106,25 @@ class RecipesFragment : Fragment() {
             val intent = Intent(requireContext(), AddRecipeActivity::class.java)
             addRecipeResultLauncher.launch(intent)
         }
+    }
+
+    // Suodattaa reseptit haun perusteella ja päivittää listan
+    private fun updateFilteredList() {
+        val filtered = if (currentQuery.isEmpty()) {
+            allRecipesList
+        } else {
+            allRecipesList.filter { recipe ->
+                recipe.name.contains(currentQuery, ignoreCase = true) ||
+                recipe.ingredients.any { it.name.contains(currentQuery, ignoreCase = true) }
+            }
+        }
+
+        emptyView.isVisible = filtered.isEmpty()
+        recyclerView.isVisible = filtered.isNotEmpty()
+
+        // Luodaan uusi adapteri suodatetulla listalla
+        val adapter = RecipeAdapter(filtered.toMutableList(), editRecipeResultLauncher)
+        recyclerView.adapter = adapter
     }
 
     // Asettaa pyyhkäisytoiminnon RecyclerViewille reseptin poistamiseksi
