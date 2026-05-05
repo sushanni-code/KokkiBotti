@@ -64,6 +64,31 @@ class GeminiService(apiKey: String) {
     }
 
     /**
+     * Kääntää MealDB-reseptin suomeksi ja muuntaa yksiköt metrijärjestelmään.
+     */
+    suspend fun translateAndConvertRecipe(mealName: String, ingredients: String, instructions: String): Recipe = withContext(Dispatchers.IO) {
+        val prompt = """
+            Käännä seuraava resepti suomeksi ja muuntaa kaikki mitat (kuten lbs, oz, cups, tsp, tbsp) suomalaisiin metrijärjestelmän yksiköihin (g, kg, dl, l, tl, rkl).
+            
+            RESEPTIN NIMI: $mealName
+            AINESOSAT:
+            $ingredients
+            OHJEET:
+            $instructions
+            
+            Palauta vastaus tässä muodossa:
+            NIMI: [käännetty nimi]
+            AINESOSAT:
+            - [ainesosa 1 mitalla]
+            - [ainesosa 2 mitalla]
+            OHJEET:
+            [käännetyt ohjeet]
+        """.trimIndent()
+
+        callGemini(listOf(Part.fromText(prompt)), mealName)
+    }
+
+    /**
      * Yhteinen apumetodi Gemini-kutsun tekemiseen.
      */
     private suspend fun callGemini(parts: List<Part>, fallbackTheme: String): Recipe {

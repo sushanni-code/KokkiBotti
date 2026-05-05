@@ -35,6 +35,9 @@ class InspirationFragment : Fragment() {
         RecipeViewModelFactory(requireActivity().application)
     }
 
+    private lateinit var geminiService: GeminiService
+    private var lastTranslatedRecipe: Recipe? = null
+
     // Tällä hetkellä näytettävä ateria
     private var currentMeal: Meal? = null
 
@@ -73,6 +76,9 @@ class InspirationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Alustetaan Gemini-palvelu
+        geminiService = GeminiService(BuildConfig.GEMINI_API_KEY)
+
         // Hakee uuden satunnaisen reseptin
         newRecipeButton.setOnClickListener {
             fetchRandomMeal()
@@ -80,14 +86,14 @@ class InspirationFragment : Fragment() {
 
         // Tallentaa nykyisen reseptin tietokantaan
         saveRecipeButton.setOnClickListener {
-            currentMeal?.let {
-                val recipeToSave = convertMealToRecipe(it)
-                recipeViewModel.addRecipe(recipeToSave)
+            lastTranslatedRecipe?.let {
+                recipeViewModel.addRecipe(it)
                 Toast.makeText(
                     requireContext(),
                     "Resepti '${it.name}' tallennettu!",
                     Toast.LENGTH_SHORT
                 ).show()
+                saveRecipeButton.isVisible = false
             }
         }
     }
@@ -106,13 +112,23 @@ class InspirationFragment : Fragment() {
                 // Otetaan ensimmäinen ateria vastauksesta
                 response.meals.firstOrNull()?.let { meal ->
                     currentMeal = meal
-                    updateUiWithMeal(meal)
+                    
+                    // Käännetään ja muunnetaan resepti Geminin avulla
+                    val ingredientsText = formatIngredients(meal)
+                    val translatedRecipe = geminiService.translateAndConvertRecipe(
+                        meal.name,
+                        ingredientsText,
+                        meal.instructions
+                    )
+                    
+                    lastTranslatedRecipe = translatedRecipe
+                    updateUiWithTranslatedRecipe(translatedRecipe, meal.thumbnailUrl)
                 }
             } catch (e: Exception) {
                 // Virhetilanteen ilmoitus käyttäjälle
                 Toast.makeText(
                     requireContext(),
-                    "Reseptin haku epäonnistui: ${e.message}",
+                    "Reseptin haku tai käännös epäonnistui: ${e.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -122,20 +138,27 @@ class InspirationFragment : Fragment() {
         }
     }
 
-    // Päivittää käyttöliittymän aterian tiedoilla
-    private fun updateUiWithMeal(meal: Meal) {
-
+    private fun updateUiWithTranslatedRecipe(recipe: Recipe, imageUrl: String) {
         // Ladataan kuva Coil-kirjastolla
-        mealImage.load(meal.thumbnailUrl) {
+        mealImage.load(imageUrl) {
             crossfade(true)
             placeholder(R.drawable.ic_launcher_background)
             error(R.drawable.ic_launcher_background)
         }
 
-        // Asetetaan tekstikenttien sisällöt
-        mealName.text = meal.name
-        mealInstructions.text = meal.instructions
-        mealIngredients.text = formatIngredients(meal)
+        // Asetetaan tekstikenttien sisällöt käännetyllä datalla
+        mealName.text = recipe.name
+        
+        // Erotellaan ainesosat ja ohjeet jos mahdollista
+        val fullText = recipe.instructions
+        if (fullText.contains("OHJEET:", ignoreCase = true)) {
+            val parts = fullText.split(Regex("OHJEET:", RegexOption.IGNORE_CASE))
+            mealIngredients.text = parts[0].substringAfter("AINESOSAT:").trim()
+            mealInstructions.text = parts[1].trim()
+        } else {
+            mealIngredients.text = ""
+            mealInstructions.text = fullText
+        }
 
         // Näytetään tallennuspainike
         saveRecipeButton.isVisible = true
@@ -170,49 +193,5 @@ class InspirationFragment : Fragment() {
 
         // Palautetaan rivinvaihdoilla eroteltu lista
         return ingredients.joinToString("\n")
-    }
-
-    // Muuntaa Meal-olion Recipe-olioksi tietokantaa varten
-    private fun convertMealToRecipe(meal: Meal): Recipe {
-        val ingredientsList = mutableListOf<Ingredient>()
-
-        // Lista kaikista ainesosa–määrä -pareista
-        val properties = listOf(
-            meal.ingredient1 to meal.measure1, meal.ingredient2 to meal.measure2,
-            meal.ingredient3 to meal.measure3, meal.ingredient4 to meal.measure4,
-            meal.ingredient5 to meal.measure5, meal.ingredient6 to meal.measure6,
-            meal.ingredient7 to meal.measure7, meal.ingredient8 to meal.measure8,
-            meal.ingredient9 to meal.measure9, meal.ingredient10 to meal.measure10,
-            meal.ingredient11 to meal.measure11, meal.ingredient12 to meal.measure12,
-            meal.ingredient13 to meal.measure13, meal.ingredient14 to meal.measure14,
-            meal.ingredient15 to meal.measure15, meal.ingredient16 to meal.measure16,
-            meal.ingredient17 to meal.measure17, meal.ingredient18 to meal.measure18,
-            meal.ingredient19 to meal.measure19, meal.ingredient20 to meal.measure20
-        )
-
-        // Rakennetaan Ingredient-oliot ei-tyhjistä arvoista
-        for ((ingredient, measure) in properties) {
-            if (!ingredient.isNullOrBlank()) {
-
-                // Yritetään muuntaa määrä numeroksi
-                val amount = measure?.toDoubleOrNull() ?: 1.0
-
-                // Erotellaan yksikkö määrästä
-                val unit = measure
-                    ?.replace(amount.toString(), "")
-                    ?.trim() ?: "kpl"
-
-                ingredientsList.add(
-                    Ingredient(amount, unit, ingredient)
-                )
-            }
-        }
-
-        // Luodaan Recipe-olio (ID syntyy vasta tietokantaan tallennettaessa)
-        return Recipe(
-            name = meal.name,
-            ingredients = ingredientsList,
-            instructions = meal.instructions
-        )
     }
 }
