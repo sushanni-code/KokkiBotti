@@ -1,17 +1,14 @@
 package com.example.kokkibotti
 
-import android.graphics.Bitmap
-import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.content
+import com.google.genai.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GeminiService(apiKey: String) {
 
-    private val model = GenerativeModel(
-        modelName = "gemini-1.5-flash",
-        apiKey = apiKey
-    )
+    private val client = Client.builder()
+        .apiKey(apiKey)
+        .build()
 
     suspend fun generateRecipe(theme: String): Recipe = withContext(Dispatchers.IO) {
         try {
@@ -26,8 +23,9 @@ class GeminiService(apiKey: String) {
                 [vaiheittaiset ohjeet]
             """.trimIndent()
             
-            val response = model.generateContent(prompt)
-            val fullText = response.text ?: "Ei vastausta tekoälyltä."
+            // Käytetään vuoden 2026 vakaata mallia (preview-tila vaatii usein -preview päätteen)
+            val response = client.models.generateContent("gemini-3-flash-preview", prompt, null)
+            val fullText = response.text() ?: "Ei vastausta tekoälyltä."
             
             // Yritetään poimia nimi tekstistä
             val name = fullText.lineSequence()
@@ -37,7 +35,7 @@ class GeminiService(apiKey: String) {
             Recipe(
                 name = name,
                 instructions = fullText,
-                ingredients = emptyList() // Ainesosien parsiminen listaksi vaatisi enemmän logiikkaa, jätetään se myöhemmäksi
+                ingredients = emptyList()
             )
         } catch (e: Exception) {
             Recipe(name = "Virhe", instructions = "Reseptin luonti epäonnistui: ${e.message}", ingredients = emptyList())

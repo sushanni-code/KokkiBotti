@@ -53,6 +53,13 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/INDEX.LIST"
+            excludes += "/META-INF/DEPENDENCIES"
+        }
+    }
 }
 
 dependencies {
@@ -79,7 +86,8 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    implementation(libs.google.generativeai)
+    implementation(libs.google.genai)
+    // implementation(libs.google.generativeai) // Old SDK removed
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
