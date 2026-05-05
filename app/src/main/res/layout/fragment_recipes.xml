@@ -52,19 +52,21 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@android:drawable/ic_menu_edit" 
-            app:tint="@color/accent_green"/>
+            app:tint="@color/primary_dark"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Ei vielä reseptejä"
+            android:textColor="@color/primary_dark"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textColor="@color/primary_dark"
             android:text="Lisää uusi painamalla + -painiketta"/>
 
     </LinearLayout>
@@ -78,7 +80,8 @@
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
         android:tooltipText="Lisää uusi resepti" 
-        app:backgroundTint="@color/accent_green"
+        app:backgroundTint="@color/primary_light"
+        app:tint="@color/soft_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

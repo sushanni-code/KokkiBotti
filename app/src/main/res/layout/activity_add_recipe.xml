@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/primary_light"
     android:fitsSystemWindows="true">
 
     <EditText
@@ -12,6 +13,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Reseptin nimi"
+        android:background="@color/neutral_gray"
+        android:padding="8dp"
+        android:textColor="@color/primary_dark"
         android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ainesosat"
+        android:textColor="@color/primary_dark"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_text_recipe_name" />
@@ -33,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Määrä"
+        android:textColor="@color/primary_dark"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_ingredients_title" />
@@ -52,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:hint="Ainesosa"
+        android:textColor="@color/primary_dark"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@id/edit_text_ingredient_amount"
         app:layout_constraintEnd_toStartOf="@id/button_add_ingredient"
@@ -63,6 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lisää"
+        android:backgroundTint="@color/primary_dark"
+        android:textColor="@color/soft_pink"
         app:layout_constraintBottom_toBottomOf="@id/edit_text_ingredient_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/edit_text_ingredient_name" />
@@ -85,6 +94,9 @@
         android:layout_marginTop="16dp"
         android:gravity="top"
         android:hint="Valmistusohjeet"
+        android:background="@color/neutral_gray"
+        android:padding="8dp"
+        android:textColor="@color/primary_dark"
         app:layout_constraintBottom_toTopOf="@id/button_save_recipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +108,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tallenna"
+        android:backgroundTint="@color/primary_dark"
+        android:textColor="@color/soft_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

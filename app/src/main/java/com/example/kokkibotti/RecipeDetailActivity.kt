@@ -126,8 +126,10 @@ class RecipeDetailActivity : AppCompatActivity() {
     private fun enterEditMode() {
         recipeNameEditText.isEnabled = true
         instructionsEditText.isEnabled = true
-        recipeNameEditText.setBackgroundResource(android.R.drawable.edit_text)
-        instructionsEditText.setBackgroundResource(android.R.drawable.edit_text)
+        
+        val editBgColor = androidx.core.content.ContextCompat.getColor(this, R.color.neutral_gray)
+        recipeNameEditText.setBackgroundColor(editBgColor)
+        instructionsEditText.setBackgroundColor(editBgColor)
 
         editButton.visibility = View.GONE
         saveButton.visibility = View.VISIBLE

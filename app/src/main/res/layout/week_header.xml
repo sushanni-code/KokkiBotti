@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,6 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/primary_dark"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         tools:text="Viikko 1" />
 
@@ -25,12 +27,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nollaa"
+        android:textColor="@color/primary_dark"
         android:layout_marginEnd="8dp"/>
 
     <ImageView
         android:id="@+id/expand_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_expand_more"/>
+        android:src="@drawable/ic_expand_more"
+        app:tint="@color/primary_dark"/>
 
 </LinearLayout>

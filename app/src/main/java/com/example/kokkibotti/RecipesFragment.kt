@@ -143,7 +143,7 @@ class RecipesFragment : Fragment() {
                 val recipeToDelete = (recyclerView.adapter as RecipeAdapter).getRecipeAt(position)
 
                 // Näytetään varmistusdialogi ennen poistamista
-                AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Alert)
                     .setTitle("Poista resepti")
                     .setMessage("Haluatko varmasti poistaa reseptin '${recipeToDelete.name}'?")
                     .setPositiveButton("Poista") { _, _ ->

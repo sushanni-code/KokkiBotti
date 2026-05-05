@@ -90,7 +90,7 @@ class PlannerFragment : Fragment() {
             // Nollaa-painikkeen toiminnallisuus
             val resetBtn = header.findViewById<Button>(R.id.reset_week_button)
             resetBtn.setOnClickListener {
-                AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Alert)
                     .setTitle("Nollaa viikko")
                     .setMessage("Haluatko varmasti poistaa kaikki tämän viikon valinnat?")
                     .setPositiveButton("Kyllä") { _, _ -> recipeViewModel.resetWeek(weekNumber) }
@@ -165,7 +165,7 @@ class PlannerFragment : Fragment() {
         val recipeNames = recipes.map { it.name }.toTypedArray()
         val allOptions = specialOptions + recipeNames
 
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Selection)
             .setTitle("Valitse")
             .setItems(allOptions) { dialog, which ->
                 when {
