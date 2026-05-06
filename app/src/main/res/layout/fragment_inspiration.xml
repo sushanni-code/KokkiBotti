@@ -26,7 +26,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Arvo uusi resepti"
-            android:backgroundTint="@color/accent_green"
+            android:backgroundTint="@color/primary_light"
+            android:textColor="@color/primary_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -95,11 +96,12 @@
 
         <Button
             android:id="@+id/save_recipe_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Tallenna omiin resepteihin"
+            android:backgroundTint="@color/primary_light"
+            android:textColor="@color/primary_dark"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

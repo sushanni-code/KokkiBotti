@@ -155,9 +155,9 @@ class AddRecipeActivity : AppCompatActivity() {
 class IngredientAdapter(private val ingredients: List<Ingredient>) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
-        // Käytetään Androidin sisäänrakennettua yksinkertaista listanäkymää.
+        // Käytetään omaa layoutia, jotta tekstin väri on oikea.
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(android.R.layout.simple_list_item_1, parent, false)
+            .inflate(R.layout.simple_ingredient_item, parent, false)
         return IngredientViewHolder(itemView)
     }
 

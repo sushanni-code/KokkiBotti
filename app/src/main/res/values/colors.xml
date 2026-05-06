@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Väripaletti -->
-    <color name="color_4A5759">#4A5759</color>
-    <color name="color_B0C4B1">#B0C4B1</color>
-    <color name="color_D1CDC1">#D1CDC1</color>
-    <color name="color_F7E1D7">#F7E1D7</color>
-    <color name="color_EDAFB8">#EDAFB8</color>
-    <color name="black_pure">#000000</color>
-
-    <!-- Alias-nimet helpottamaan käyttöä -->
+    <!-- Sovelluksen värit -->
     <color name="primary_dark">#4A5759</color>
     <color name="primary_light">#B0C4B1</color>
     <color name="neutral_gray">#D1CDC1</color>
     <color name="soft_pink">#F7E1D7</color>
     <color name="accent_pink">#EDAFB8</color>
-
-    <!-- Yhteensopivuus vanhojen nimien kanssa (ohitetaan myöhemmin tai päivitetään) -->
-    <color name="primary_green">#4A5759</color>
-    <color name="accent_green">#B0C4B1</color>
-    <color name="white">#D1CDC1</color>
-    <color name="black">#4A5759</color>
-    <color name="light_background">#D1CDC1</color>
+    <color name="black_pure">#000000</color>
 </resources>

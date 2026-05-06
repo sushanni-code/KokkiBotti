@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Tallenna"
             android:backgroundTint="@color/primary_light"
-            android:textColor="@color/soft_pink"
+            android:textColor="@color/primary_dark"
             android:visibility="gone"/>
 
     </FrameLayout>
