@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/black_pure">
+    android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +12,7 @@
         android:text="AI Kokki"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/soft_pink"
+        android:textColor="?attr/colorOnPrimary"
         android:layout_marginBottom="16dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -24,8 +23,8 @@
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="1dp"
-        android:textColorHint="@color/neutral_gray"
-        app:hintTextColor="@color/neutral_gray"
+        android:textColorHint="?android:attr/textColorPrimary"
+        app:hintTextColor="?android:attr/textColorPrimary"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
@@ -36,7 +35,7 @@
             android:id="@+id/edit_text_prompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/neutral_gray" />
+            android:textColor="?android:attr/textColorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -50,10 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Luo resepti"
-            android:backgroundTint="@color/primary_light"
-            android:textColor="@color/primary_dark"
-            android:layout_marginEnd="4dp" />
+            android:text="Luo resepti" />
 
         <Button
             android:id="@+id/button_camera"
@@ -61,11 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Ota kuva"
-            android:backgroundTint="@color/primary_light"
-            android:textColor="@color/primary_dark"
-            android:layout_marginStart="4dp"
-            app:icon="@android:drawable/ic_menu_camera"
-            app:iconTint="@color/primary_dark" />
+            app:icon="@android:drawable/ic_menu_camera" />
     </LinearLayout>
 
     <ImageView
@@ -81,8 +73,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tallenna resepti omiin reseptihin"
-        android:backgroundTint="@color/primary_light"
-        android:textColor="@color/primary_dark"
         android:layout_marginBottom="16dp"
         android:visibility="gone" />
 
@@ -104,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="AI:n vastaus ilmestyy tähän..."
-            android:textColor="@color/neutral_gray"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
     </androidx.core.widget.NestedScrollView>
 

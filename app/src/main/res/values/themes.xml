@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.KokkiBotti" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color (yläpalkki, drawer-otsake) -->
-        <item name="colorPrimary">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/soft_pink</item>
+        <item name="colorPrimary">@color/primary_light</item>
+        <item name="colorOnPrimary">@color/primary_dark</item>
 
         <!-- Secondary brand color (napit, korostukset) -->
         <item name="colorSecondary">@color/primary_light</item>
@@ -13,25 +13,26 @@
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         
         <!-- Window background -->
-        <item name="android:windowBackground">@color/black_pure</item>
-        <item name="android:textColorPrimary">@color/neutral_gray</item>
+        <item name="android:windowBackground">@color/neutral_gray</item>
+        <item name="android:textColorPrimary">@color/primary_dark</item>
+        <item name="colorOnSurfaceVariant">@color/primary_dark</item>
     </style>
 
     <style name="Theme.KokkiBotti" parent="Base.Theme.KokkiBotti" />
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
-        <item name="backgroundTint">@color/primary_dark</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="itemIconTint">@color/bottom_nav_colors</item>
         <item name="itemTextColor">@color/bottom_nav_text_colors</item>
-        <item name="itemRippleColor">@color/soft_pink</item>
+        <item name="itemRippleColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <!-- Alapalkin aktiivinen fragmentti (pilleri) -->
-        <item name="colorSecondaryContainer">@color/soft_pink</item>
-        <item name="colorOnSecondaryContainer">@color/primary_dark</item>
-        <item name="colorOnSurfaceVariant">@color/neutral_gray</item>
+        <item name="colorSecondaryContainer">@color/primary_dark</item>
+        <item name="colorOnSecondaryContainer">@color/primary_light</item>
+        <item name="colorOnSurfaceVariant">@color/primary_dark</item>
     </style>
 
     <!-- Nappien tyyli -->
@@ -42,7 +43,7 @@
 
     <!-- Dialogit -->
     <style name="Theme.App.Dialog.Alert" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="colorSurface">@color/accent_pink</item>
+        <item name="colorSurface">@color/primary_light</item>
         <item name="colorOnSurface">@color/primary_dark</item>
         <item name="colorPrimary">@color/primary_dark</item>
     </style>

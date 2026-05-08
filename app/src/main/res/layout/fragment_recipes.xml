@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_pure"
     tools:context=".RecipesFragment">
 
     <!-- Hakukenttä (SearchView) -->
@@ -15,6 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/frame_border"
         app:iconifiedByDefault="false"
         app:queryHint="Hae reseptiä sanalla tai eineksellä..."
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,14 +50,14 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@android:drawable/ic_menu_edit" 
-            app:tint="@color/neutral_gray"/>
+            app:tint="?android:attr/textColorPrimary"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Ei vielä reseptejä"
-            android:textColor="@color/neutral_gray"
+            android:textColor="?android:attr/textColorPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
     </LinearLayout>
@@ -70,7 +70,7 @@
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/primary_light"
-        app:tint="@color/soft_pink"
+        app:tint="@color/primary_dark"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

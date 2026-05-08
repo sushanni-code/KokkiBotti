@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="@color/soft_pink" />
-    <item android:color="@color/neutral_gray" />
+    <!-- Aktiivinen teksti: Vaaleassa tummanvihreä, tummassa vaaleanpunainen -->
+    <item android:state_checked="true" android:color="?attr/colorSecondaryContainer" />
+    <!-- Inaktiivinen teksti: Vaaleassa tummanvihreä, tummassa vaaleanharmaa -->
+    <item android:color="?attr/colorOnSurfaceVariant" />
 </selector>

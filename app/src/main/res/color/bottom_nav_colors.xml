@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Väri, kun kohde on valittuna -->
-    <item android:state_checked="true" android:color="@color/primary_dark" />
-    <!-- Oletusväri (valitsematon kohde) -->
-    <item android:color="@color/neutral_gray" />
+    <!-- Aktiivinen ikoni: käyttää teeman pillerin päälle sopivaa väriä -->
+    <item android:state_checked="true" android:color="?attr/colorOnSecondaryContainer" />
+    <!-- Inaktiivinen ikoni: käyttää teeman kontrastiväriä -->
+    <item android:color="?attr/colorOnSurfaceVariant" />
 </selector>
