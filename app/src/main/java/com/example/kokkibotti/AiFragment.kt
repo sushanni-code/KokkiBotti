@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -35,7 +36,7 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
             imagePreview?.setImageBitmap(bitmap)
             imagePreview?.isVisible = true
             
-            // Analysoidaan kuva
+            // Analysoidaan kuva nykyisellä kielellä
             analyzeImage(bitmap)
         }
     }
@@ -47,7 +48,7 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
         if (isGranted) {
             takePictureLauncher.launch(null)
         } else {
-            Toast.makeText(requireContext(), "Kamera-lupa tarvitaan kuvan ottamiseen.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.ai_permission_needed), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -73,10 +74,11 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
                     spinner.isVisible = true
                     saveButton.isVisible = false
                     try {
-                        val recipe = geminiService.generateRecipe(userPrompt)
+                        val currentLang = AppCompatDelegate.getApplicationLocales().get(0)?.language ?: "fi"
+                        val recipe = geminiService.generateRecipe(userPrompt, currentLang)
                         handleRecipeResult(recipe, responseText, saveButton)
                     } catch (e: Exception) {
-                        responseText.text = "Virhe: ${e.message}"
+                        responseText.text = getString(R.string.ai_error_prefix, e.message)
                         lastGeneratedRecipe = null
                     } finally {
                         spinner.isVisible = false
@@ -92,7 +94,7 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
         saveButton.setOnClickListener {
             lastGeneratedRecipe?.let { recipe ->
                 recipeViewModel.addRecipe(recipe)
-                Toast.makeText(requireContext(), "Resepti '${recipe.name}' tallennettu!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.ai_save_success, recipe.name), Toast.LENGTH_SHORT).show()
                 saveButton.isVisible = false // Piilotetaan tallennuksen jälkeen
             }
         }
@@ -121,10 +123,11 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
             spinner?.isVisible = true
             saveButton?.isVisible = false
             try {
-                val recipe = geminiService.generateRecipeFromImage(bitmap)
+                val currentLang = AppCompatDelegate.getApplicationLocales().get(0)?.language ?: "fi"
+                val recipe = geminiService.generateRecipeFromImage(bitmap, currentLang)
                 handleRecipeResult(recipe, responseText, saveButton)
             } catch (e: Exception) {
-                responseText?.text = "Virhe: ${e.message}"
+                responseText?.text = getString(R.string.ai_error_prefix, e.message)
                 lastGeneratedRecipe = null
             } finally {
                 spinner?.isVisible = false
@@ -137,7 +140,7 @@ class AiFragment : Fragment(R.layout.fragment_ai) {
         responseText?.text = recipe.instructions
         
         // Näytetään tallennuspainike vain jos haku onnistui
-        if (recipe.name != "Virhe") {
+        if (recipe.name != "Virhe" && recipe.name != "Error") {
             saveButton?.isVisible = true
         }
     }

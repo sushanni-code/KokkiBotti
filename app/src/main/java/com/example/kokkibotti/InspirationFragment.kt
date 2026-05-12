@@ -1,36 +1,24 @@
 package com.example.kokkibotti
 
-// Androidin perusluokat fragmentin elinkaareen ja näkymiin
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// UI-komponentit
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-
-// Apuluokkia ja AndroidX-kirjastoja
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-
-// Coil-kirjasto kuvien lataamiseen
 import coil.load
-
-// Coroutines
 import kotlinx.coroutines.launch
-
-// Fragmentti, joka hakee ja näyttää satunnaisen reseptin inspiraatiota varten
-
 
 class InspirationFragment : Fragment() {
 
-    // Jaettu ViewModel activity-tasolla, jotta data säilyy fragmenttien välillä
     private val recipeViewModel: RecipeViewModel by activityViewModels {
         RecipeViewModelFactory(requireActivity().application)
     }
@@ -38,10 +26,8 @@ class InspirationFragment : Fragment() {
     private lateinit var geminiService: GeminiService
     private var lastTranslatedRecipe: Recipe? = null
 
-    // Tällä hetkellä näytettävä ateria
     private var currentMeal: Meal? = null
 
-    // UI-komponenttien muuttujat
     private lateinit var loadingSpinner: ProgressBar
     private lateinit var newRecipeButton: Button
     private lateinit var saveRecipeButton: Button
@@ -50,17 +36,13 @@ class InspirationFragment : Fragment() {
     private lateinit var mealIngredients: TextView
     private lateinit var mealInstructions: TextView
 
-    // Fragmentin näkymän luonti
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // Inflatoidaan fragment_inspiration.xml
         val view = inflater.inflate(R.layout.fragment_inspiration, container, false)
 
-        // Alustetaan UI-komponentit layoutista
         loadingSpinner = view.findViewById(R.id.loading_spinner)
         newRecipeButton = view.findViewById(R.id.new_recipe_button)
         saveRecipeButton = view.findViewById(R.id.save_recipe_button)
@@ -72,25 +54,21 @@ class InspirationFragment : Fragment() {
         return view
     }
 
-    // Kutsutaan, kun näkymä on luotu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Alustetaan Gemini-palvelu
         geminiService = GeminiService(BuildConfig.GEMINI_API_KEY)
 
-        // Hakee uuden satunnaisen reseptin
         newRecipeButton.setOnClickListener {
             fetchRandomMeal()
         }
 
-        // Tallentaa nykyisen reseptin tietokantaan
         saveRecipeButton.setOnClickListener {
             lastTranslatedRecipe?.let {
                 recipeViewModel.addRecipe(it)
                 Toast.makeText(
                     requireContext(),
-                    "Resepti '${it.name}' tallennettu!",
+                    getString(R.string.ai_save_success, it.name),
                     Toast.LENGTH_SHORT
                 ).show()
                 saveRecipeButton.isVisible = false
@@ -98,77 +76,76 @@ class InspirationFragment : Fragment() {
         }
     }
 
-    // Hakee satunnaisen aterian API:sta
     private fun fetchRandomMeal() {
         lifecycleScope.launch {
-            // Näytetään latausspinneri ja piilotetaan tallennusnappi
             loadingSpinner.isVisible = true
             saveRecipeButton.isVisible = false
 
             try {
-                // API-kutsu satunnaisen reseptin hakemiseen
                 val response = mealApiService.getRandomMeal()
 
-                // Otetaan ensimmäinen ateria vastauksesta
                 response.meals.firstOrNull()?.let { meal ->
                     currentMeal = meal
                     
-                    // Käännetään ja muunnetaan resepti Geminin avulla
                     val ingredientsText = formatIngredients(meal)
+                    val currentLang = AppCompatDelegate.getApplicationLocales().get(0)?.language ?: "fi"
+                    
                     val translatedRecipe = geminiService.translateAndConvertRecipe(
                         meal.name,
                         ingredientsText,
-                        meal.instructions
+                        meal.instructions,
+                        currentLang
                     )
                     
                     lastTranslatedRecipe = translatedRecipe
-                    updateUiWithTranslatedRecipe(translatedRecipe, meal.thumbnailUrl)
+                    updateUiWithTranslatedRecipe(translatedRecipe, meal.thumbnailUrl, currentLang)
                 }
             } catch (e: Exception) {
-                // Virhetilanteen ilmoitus käyttäjälle
                 Toast.makeText(
                     requireContext(),
-                    "Reseptin haku tai käännös epäonnistui: ${e.message}",
+                    getString(R.string.insp_fetch_error, e.message),
                     Toast.LENGTH_LONG
                 ).show()
             }
 
-            // Piilotetaan latausspinneri
             loadingSpinner.isVisible = false
         }
     }
 
-    private fun updateUiWithTranslatedRecipe(recipe: Recipe, imageUrl: String) {
-        // Ladataan kuva Coil-kirjastolla
+    private fun updateUiWithTranslatedRecipe(recipe: Recipe, imageUrl: String, language: String) {
         mealImage.load(imageUrl) {
             crossfade(true)
             placeholder(R.drawable.ic_launcher_background)
             error(R.drawable.ic_launcher_background)
         }
 
-        // Asetetaan tekstikenttien sisällöt käännetyllä datalla
         mealName.text = recipe.name
         
-        // Erotellaan ainesosat ja ohjeet jos mahdollista
         val fullText = recipe.instructions
-        if (fullText.contains("OHJEET:", ignoreCase = true)) {
-            val parts = fullText.split(Regex("OHJEET:", RegexOption.IGNORE_CASE))
-            mealIngredients.text = parts[0].substringAfter("AINESOSAT:").trim()
+        val instrDelimiter = if (language == "en") "INSTRUCTIONS:" else "OHJEET:"
+        val ingrDelimiter = if (language == "en") "INGREDIENTS:" else "AINESOSAT:"
+
+        if (fullText.contains(instrDelimiter, ignoreCase = true)) {
+            val parts = fullText.split(Regex(instrDelimiter, RegexOption.IGNORE_CASE))
+            val topPart = parts[0]
+            val ingredientsPart = if (topPart.contains(ingrDelimiter, ignoreCase = true)) {
+                topPart.substringAfter(ingrDelimiter).trim()
+            } else {
+                topPart.trim()
+            }
+            
+            mealIngredients.text = ingredientsPart
             mealInstructions.text = parts[1].trim()
         } else {
             mealIngredients.text = ""
             mealInstructions.text = fullText
         }
 
-        // Näytetään tallennuspainike
         saveRecipeButton.isVisible = true
     }
 
-    // Muotoilee ainesosat näytettävään tekstimuotoon
     private fun formatIngredients(meal: Meal): String {
         val ingredients = mutableListOf<String>()
-
-        // Lista kaikista mahdollisista ingredient–measure -pareista
         val properties = listOf(
             meal.ingredient1 to meal.measure1, meal.ingredient2 to meal.measure2,
             meal.ingredient3 to meal.measure3, meal.ingredient4 to meal.measure4,
@@ -182,16 +159,11 @@ class InspirationFragment : Fragment() {
             meal.ingredient19 to meal.measure19, meal.ingredient20 to meal.measure20
         )
 
-        // Käydään läpi ainesosat ja lisätään vain ei-tyhjät arvot
         for ((ingredient, measure) in properties) {
             if (!ingredient.isNullOrBlank()) {
-                ingredients.add(
-                    "- ${measure?.trim() ?: ""} ${ingredient.trim()}".trim()
-                )
+                ingredients.add("- ${measure?.trim() ?: ""} ${ingredient.trim()}".trim())
             }
         }
-
-        // Palautetaan rivinvaihdoilla eroteltu lista
         return ingredients.joinToString("\n")
     }
 }

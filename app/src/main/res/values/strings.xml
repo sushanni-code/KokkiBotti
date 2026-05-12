@@ -1,3 +1,79 @@
 <resources>
     <string name="app_name">KokkiBotti</string>
+    <string name="settings_dark_mode">Tumma tila</string>
+    <string name="settings_language">Kieli</string>
+    <string name="language_fi">Suomi</string>
+    <string name="language_en">Englanti (English)</string>
+
+    <string name="ai_title">AI Kokki</string>
+    <string name="ai_prompt_hint">Mitä haluat kokata tänään?</string>
+    <string name="ai_button_generate">Luo resepti</string>
+    <string name="ai_button_camera">Ota kuva</string>
+    <string name="ai_button_save">Tallenna resepti</string>
+    <string name="ai_error_prefix">Virhe: %s</string>
+    <string name="ai_no_response">Ei vastausta tekoälyltä.</string>
+    <string name="ai_save_success">Resepti \'%s\' tallennettu!</string>
+    <string name="ai_permission_needed">Kamera-lupa tarvitaan kuvan ottamiseen.</string>
+
+    <string name="insp_title">Inspiraatio</string>
+    <string name="insp_button_new">Hae uusi resepti</string>
+    <string name="insp_button_save">Tallenna resepti</string>
+    <string name="insp_fetch_error">Reseptin haku tai käännös epäonnistui: %s</string>
+    <string name="insp_ingredients">Ainesosat</string>
+    <string name="insp_instructions">Ohjeet</string>
+    <string name="image_desc_meal">Aterian kuva</string>
+    <string name="image_desc_preview">Kuvan esikatselu</string>
+
+    <string name="menu_recipes">Reseptit</string>
+    <string name="menu_planner">Ruokalista</string>
+    <string name="menu_inspiration">Inspiraatio</string>
+    <string name="menu_ai">AI Kokki</string>
+    <string name="menu_settings">Asetukset</string>
+    <string name="menu_about">Tietoja</string>
+
+    <string name="recipes_search_hint">Hae reseptiä sanalla...</string>
+    <string name="recipes_empty">Ei vielä reseptejä</string>
+    <string name="recipes_delete_title">Poista resepti</string>
+    <string name="recipes_delete_msg">Haluatko varmasti poistaa reseptin \'%s\'?</string>
+    <string name="recipes_delete_confirm">Poista</string>
+
+    <string name="planner_title">Viikon ruokalista</string>
+    <string name="planner_empty">Ei ateriaa</string>
+    <string name="planner_reset">Nollaa viikko</string>
+    <string name="planner_week">Viikko %d</string>
+    <string name="planner_reset_confirm_title">Nollaa viikko</string>
+    <string name="planner_reset_confirm_msg">Haluatko varmasti poistaa kaikki tämän viikon valinnat?</string>
+    <string name="planner_select_recipe">Valitse resepti</string>
+    <string name="planner_dialog_title">Valitse</string>
+    <string name="planner_option_empty">Tyhjä</string>
+    <string name="planner_option_eating_out">Syö ulkona</string>
+    <string name="planner_button_cancel">Peruuta</string>
+    <string name="planner_yes">Kyllä</string>
+    <string name="planner_no">Ei</string>
+
+    <string name="day_1">Maanantai</string>
+    <string name="day_2">Tiistai</string>
+    <string name="day_3">Keskiviikko</string>
+    <string name="day_4">Torstai</string>
+    <string name="day_5">Perjantai</string>
+    <string name="day_6">Lauantai</string>
+    <string name="day_7">Sunnuntai</string>
+
+    <string name="about_title">Tietoja sovelluksesta</string>
+    <string name="about_text">Tämä on KokkiBotti-sovellus, jonka tarkoituksena on auttaa sinua suunnittelemaan viikon menu. Ei tarvitse joka päivä pohtia mitä tänään syötäisiin?! Voit inspiraatio-sivustolta arpoa uusia reseptejä kokeiltavaksi. Kokeile ja ihastu!\n\nMade by @SusannaLoviisa</string>
+
+    <string name="add_recipe_name_hint">Reseptin nimi</string>
+    <string name="add_recipe_ingredients_title">Ainesosat</string>
+    <string name="add_recipe_amount_hint">Määrä</string>
+    <string name="add_recipe_ingredient_hint">Ainesosa</string>
+    <string name="add_recipe_button_add">Lisää</string>
+    <string name="add_recipe_instructions_hint">Valmistusohjeet</string>
+    <string name="add_recipe_button_save">Tallenna</string>
+    <string name="add_recipe_error_name">Lisää reseptin nimi</string>
+    <string name="add_recipe_error_ingredients">Lisää reseptiin ainesosia</string>
+    <string name="add_recipe_error_instructions">Lisää reseptin ohjeet</string>
+    <string name="add_recipe_success">Reseptin tallennus onnistui!</string>
+
+    <string name="detail_edit_desc">Muokkaa</string>
+    <string name="search_hint">Etsi reseptejä ainesosalla…</string>
 </resources>

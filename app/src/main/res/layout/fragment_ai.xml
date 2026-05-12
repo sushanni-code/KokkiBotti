@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AI Kokki"
+        android:text="@string/ai_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnPrimary"
@@ -18,7 +18,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mitä haluat kokata tänään?"
+        android:hint="@string/ai_prompt_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="1dp"
@@ -49,14 +49,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Luo resepti" />
+            android:text="@string/ai_button_generate"
+            android:layout_marginEnd="4dp" />
 
         <Button
             android:id="@+id/button_camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ota kuva"
+            android:text="@string/ai_button_camera"
+            android:layout_marginStart="4dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             app:icon="@android:drawable/ic_menu_camera" />
     </LinearLayout>
 
@@ -66,15 +69,17 @@
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/image_desc_preview" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tallenna resepti omiin reseptihin"
+        android:text="@string/ai_button_save"
         android:layout_marginBottom="16dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
     <ProgressBar
         android:id="@+id/loading_spinner"
@@ -93,7 +98,7 @@
             android:id="@+id/text_ai_response"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AI:n vastaus ilmestyy tähän..."
+            android:text=""
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
     </androidx.core.widget.NestedScrollView>

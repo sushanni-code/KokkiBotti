@@ -4,14 +4,14 @@
         <item
             android:id="@+id/nav_ai"
             android:icon="@android:drawable/ic_menu_edit"
-            android:title="AI Kokki" />
+            android:title="@string/menu_ai" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@android:drawable/ic_menu_preferences"
-            android:title="Asetukset" />
+            android:title="@string/menu_settings" />
         <item
             android:id="@+id/nav_about"
             android:icon="@android:drawable/ic_menu_info_details"
-            android:title="Tietoja" />
+            android:title="@string/menu_about" />
     </group>
 </menu>

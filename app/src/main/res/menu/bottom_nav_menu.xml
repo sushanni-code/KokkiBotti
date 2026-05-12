@@ -4,20 +4,20 @@
     <item
         android:id="@+id/navigation_recipes"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="Reseptit"/>
+        android:title="@string/menu_recipes"/>
 
     <item
         android:id="@+id/navigation_planner"
         android:icon="@android:drawable/ic_menu_my_calendar"
-        android:title="Ruokalista"/>
+        android:title="@string/menu_planner"/>
 
     <item
         android:id="@+id/navigation_inspiration"
         android:icon="@android:drawable/ic_menu_help"
-        android:title="Inspiraatio"/>
+        android:title="@string/menu_inspiration"/>
     <item
         android:id="@+id/nav_ai"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="AI Kokki"/>
+        android:title="@string/menu_ai"/>
 
 </menu>

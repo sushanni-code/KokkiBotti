@@ -9,38 +9,38 @@
     <fragment
         android:id="@+id/navigation_recipes"
         android:name="com.example.kokkibotti.RecipesFragment"
-        android:label="Reseptit"
+        android:label="@string/menu_recipes"
         tools:layout="@layout/fragment_recipes" />
 
     <fragment
         android:id="@+id/navigation_planner"
         android:name="com.example.kokkibotti.PlannerFragment"
-        android:label="Ruokalista"
+        android:label="@string/menu_planner"
         tools:layout="@layout/fragment_planner" />
 
     <fragment
         android:id="@+id/navigation_inspiration"
         android:name="com.example.kokkibotti.InspirationFragment"
-        android:label="Inspiraatio"
+        android:label="@string/menu_inspiration"
         tools:layout="@layout/fragment_inspiration" />
 
     <!-- Drawer Navigation Destinations -->
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.kokkibotti.SettingsFragment"
-        android:label="Asetukset"
+        android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_about"
         android:name="com.example.kokkibotti.AboutFragment"
-        android:label="Tietoja"
+        android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_ai"
         android:name="com.example.kokkibotti.AiFragment"
-        android:label="AI Kokki"
+        android:label="@string/menu_ai"
         tools:layout="@layout/fragment_ai" />
 
 </navigation>

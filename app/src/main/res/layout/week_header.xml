@@ -26,7 +26,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nollaa"
+        android:text="@string/planner_reset"
         android:textColor="@color/primary_dark"
         android:layout_marginEnd="8dp"/>
 
@@ -35,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_expand_more"
-        app:tint="@color/primary_dark"/>
+        app:tint="@color/primary_dark"
+        android:contentDescription="@null" />
 
 </LinearLayout>

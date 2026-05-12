@@ -16,18 +16,18 @@
 
         <ImageButton
             android:id="@+id/btnMuokkaa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_edit"
             app:tint="@color/primary_dark"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Muokkaa" />
+            android:contentDescription="@string/detail_edit_desc" />
 
         <Button
             android:id="@+id/btnTallenna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tallenna"
+            android:text="@string/add_recipe_button_save"
             android:backgroundTint="@color/primary_light"
             android:textColor="@color/primary_dark"
             android:visibility="gone"/>
@@ -58,20 +58,21 @@
                 <EditText
                     android:id="@+id/text_view_recipe_name_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:background="@android:color/transparent"
                     android:enabled="false"
                     android:textColor="@color/primary_dark"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="Reseptin nimi" />
+                    tools:text="Reseptin nimi"
+                    android:hint="@string/add_recipe_name_hint" />
 
                 <TextView
                     android:id="@+id/text_view_ingredients_title_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Ainesosat"
+                    android:text="@string/add_recipe_ingredients_title"
                     android:textColor="@color/primary_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -96,15 +97,15 @@
                     <EditText
                         android:id="@+id/edit_text_ingredient_amount"
                         android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:hint="Määrä"
+                        android:layout_height="48dp"
+                        android:hint="@string/add_recipe_amount_hint"
                         android:textColor="@color/primary_dark"
                         android:inputType="numberDecimal" />
 
                     <Spinner
                         android:id="@+id/spinner_ingredient_unit"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginStart="4dp"/>
 
                     <EditText
@@ -114,14 +115,14 @@
                         android:layout_weight="1"
                         android:layout_marginStart="4dp"
                         android:textColor="@color/primary_dark"
-                        android:hint="Ainesosa"/>
+                        android:hint="@string/add_recipe_ingredient_hint"/>
 
                     <Button
                         android:id="@+id/button_add_ingredient"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lisää"
+                        android:text="@string/add_recipe_button_add"
                         android:textColor="@color/primary_dark"/>
                 </LinearLayout>
 
@@ -130,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Valmistusohjeet"
+                    android:text="@string/add_recipe_instructions_hint"
                     android:textColor="@color/primary_dark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -143,7 +144,8 @@
                     android:background="@android:color/transparent"
                     android:enabled="false"
                     android:textColor="@color/primary_dark"
-                    tools:text="1. Pilko sipuli ja porkkanat..." />
+                    tools:text="1. Pilko sipuli ja porkkanat..."
+                    android:hint="@string/add_recipe_instructions_hint" />
 
             </LinearLayout>
         </ScrollView>

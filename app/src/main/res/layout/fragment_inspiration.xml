@@ -25,7 +25,7 @@
             android:id="@+id/new_recipe_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Arvo uusi resepti"
+            android:text="@string/insp_button_new"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +36,7 @@
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/image_desc_meal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/new_recipe_button"
@@ -58,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Ainesosat"
+            android:text="@string/insp_ingredients"
             android:textColor="?android:attr/textColorPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Ohjeet"
+            android:text="@string/insp_instructions"
             android:textColor="?android:attr/textColorPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,23 +103,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Tallenna omiin resepteihin"
+            android:text="@string/insp_button_save"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/meal_instructions"
             tools:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/attribution_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Reseptitiedot: TheMealDB"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/save_recipe_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

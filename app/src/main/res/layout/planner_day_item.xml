@@ -46,7 +46,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:visibility="gone"
         tools:visibility="visible"
-        android:contentDescription="Avaa resepti"
+        android:contentDescription="@string/detail_edit_desc"
         app:tint="@color/primary_dark"/>
 
 </LinearLayout>

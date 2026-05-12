@@ -144,12 +144,12 @@ class RecipesFragment : Fragment() {
 
                 // Näytetään varmistusdialogi ennen poistamista
                 AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Alert)
-                    .setTitle("Poista resepti")
-                    .setMessage("Haluatko varmasti poistaa reseptin '${recipeToDelete.name}'?")
-                    .setPositiveButton("Poista") { _, _ ->
+                    .setTitle(getString(R.string.recipes_delete_title))
+                    .setMessage(getString(R.string.recipes_delete_msg, recipeToDelete.name))
+                    .setPositiveButton(getString(R.string.recipes_delete_confirm)) { _, _ ->
                         recipeViewModel.deleteRecipe(recipeToDelete) // Poistetaan resepti ViewModelista
                     }
-                    .setNegativeButton("Peruuta") { dialog, _ ->
+                    .setNegativeButton(getString(R.string.planner_button_cancel)) { dialog, _ ->
                         // Palautetaan pyyhkäisty item, jos käyttäjä peruuttaa
                         (recyclerView.adapter as RecipeAdapter).notifyItemChanged(position)
                         dialog.dismiss()

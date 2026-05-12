@@ -69,8 +69,16 @@ class PlannerFragment : Fragment() {
             view.findViewById<View>(R.id.week_4_header)
         )
 
-        // Viikonpäivien nimet
-        val weekDays = listOf("Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai")
+        // Viikonpäivien nimet resurssitiedostosta
+        val weekDays = listOf(
+            getString(R.string.day_1),
+            getString(R.string.day_2),
+            getString(R.string.day_3),
+            getString(R.string.day_4),
+            getString(R.string.day_5),
+            getString(R.string.day_6),
+            getString(R.string.day_7)
+        )
         val inflater = LayoutInflater.from(requireContext())
 
         // Haetaan nykyinen viikko ja viikonpäivä kalenterista
@@ -84,17 +92,17 @@ class PlannerFragment : Fragment() {
             val header = weekHeaders[i]
 
             // Asetetaan viikon otsikko
-            header.findViewById<TextView>(R.id.week_title_text_view).text = "Viikko $weekNumber"
+            header.findViewById<TextView>(R.id.week_title_text_view).text = getString(R.string.planner_week, weekNumber)
             daysContainer.removeAllViews() // Tyhjennetään vanhat näkymät
 
             // Nollaa-painikkeen toiminnallisuus
             val resetBtn = header.findViewById<Button>(R.id.reset_week_button)
             resetBtn.setOnClickListener {
                 AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Alert)
-                    .setTitle("Nollaa viikko")
-                    .setMessage("Haluatko varmasti poistaa kaikki tämän viikon valinnat?")
-                    .setPositiveButton("Kyllä") { _, _ -> recipeViewModel.resetWeek(weekNumber) }
-                    .setNegativeButton("Ei", null)
+                    .setTitle(getString(R.string.planner_reset_confirm_title))
+                    .setMessage(getString(R.string.planner_reset_confirm_msg))
+                    .setPositiveButton(getString(R.string.planner_yes)) { _, _ -> recipeViewModel.resetWeek(weekNumber) }
+                    .setNegativeButton(getString(R.string.planner_no), null)
                     .show()
             }
 
@@ -106,11 +114,11 @@ class PlannerFragment : Fragment() {
                 val recipeNameTextView = dayView.findViewById<TextView>(R.id.recipe_name_text_view)
 
                 dayView.findViewById<TextView>(R.id.day_name_text_view).text = dayName
-                recipeNameTextView.text = "Valitse resepti" // Alustusteksti
+                recipeNameTextView.text = getString(R.string.planner_select_recipe) // Alustusteksti
 
                 // Kuunnellaan LiveDataa, jotta valittu resepti näkyy automaattisesti
                 recipeViewModel.getRecipeForDay(weekNumber, dayOfWeek).observe(viewLifecycleOwner, Observer { recipe ->
-                    recipeNameTextView.text = recipe?.name ?: "Valitse resepti"
+                    recipeNameTextView.text = recipe?.name ?: getString(R.string.planner_select_recipe)
                     
                     val btnViewRecipe = dayView.findViewById<ImageButton>(R.id.btn_view_recipe)
                     if (recipe != null && recipe.id != -1) {
@@ -161,12 +169,12 @@ class PlannerFragment : Fragment() {
     // Näyttää dialogin reseptin valintaa varten tietylle päivälle
     private fun showRecipeSelectionDialog(week: Int, day: Int) {
         val recipes = recipeViewModel.allRecipes.value ?: emptyList()
-        val specialOptions = arrayOf("Tyhjä", "Syö ulkona")
+        val specialOptions = arrayOf(getString(R.string.planner_option_empty), getString(R.string.planner_option_eating_out))
         val recipeNames = recipes.map { it.name }.toTypedArray()
         val allOptions = specialOptions + recipeNames
 
         AlertDialog.Builder(requireContext(), R.style.Theme_App_Dialog_Selection)
-            .setTitle("Valitse")
+            .setTitle(getString(R.string.planner_dialog_title))
             .setItems(allOptions) { dialog, which ->
                 when {
                     which == 0 -> { // Tyhjä
@@ -174,7 +182,7 @@ class PlannerFragment : Fragment() {
                     }
                     which == 1 -> { // Syö ulkona
                         // Luodaan placeholder-resepti "Syö ulkona"
-                        val eatingOutRecipe = Recipe(id = -1, name = "Syö ulkona", ingredients = emptyList(), instructions = "")
+                        val eatingOutRecipe = Recipe(id = -1, name = getString(R.string.planner_option_eating_out), ingredients = emptyList(), instructions = "")
                         recipeViewModel.planMeal(week, day, eatingOutRecipe)
                     }
                     else -> {
@@ -184,7 +192,7 @@ class PlannerFragment : Fragment() {
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Peruuta") { dialog, _ ->
+            .setNegativeButton(getString(R.string.planner_button_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
