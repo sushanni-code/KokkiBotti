@@ -3,6 +3,12 @@ KokkiBotti: A Modern Android Recipe & Meal Planning App
 KokkiBotti is a comprehensive recipe management and meal-planning application developed for Android. This project was built as a final assignment for a Mobile Programming course, demonstrating a modern, feature-rich architecture using Kotlin and the latest Android Jetpack libraries.
 The application allows users to discover, save, and organize recipes, as well as plan their meals for up to four weeks. A key feature is the "Inspiration" section, which integrates with the public TheMealDB API to fetch random meal ideas that can be directly saved into the user's local collection.
 
+!!! INSTRUCTIONS FOR API-KEY USAGE FOR GEMINI !!!
+- API-key is saved locally to prevent bots having access to personal API keys from GitHub
+- API-key must be inserted to local.properties file with key word GEMINI_API_KEY=
+- The app isnt for commercial use, so the AI properties need a personal API key to work properly
+- You can get your own Gemini API Key, for free, from Google AI Studio website aistudio.google.com
+
 Core Features
 • Recipe Management: Create, read, update, and delete (CRUD) personal recipes with detailed ingredients and instructions.
 • Meal Planner: Plan meals for a full four-week schedule. Users can assign saved recipes to each day.
