@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Tämä on KokkiBotti-sovellus, jonka tarkoituksena on auttaa sinua suunnittelemaan viikon menu. Ei tarvitse joka päivä pohtia mitä tänään syötäisiin?! Voit inspiraatio-sivustolta arpoa uusia reseptejä kokeiltavaksi. Kokeile ja ihastu!\n\nMade by @SusannaLoviisa"
+            android:text="Tämä on KokkiBotti-sovellus, jonka tarkoituksena on auttaa sinua suunnittelemaan viikon menu. Ei tarvitse joka päivä pohtia mitä tänään syötäisiin?! Voit inspiraatio-sivustolta arpoa uusia reseptejä kokeiltavaksi. Meidän AI-Kokkimme auttaa sinua kehittämään jääkaapin sisällöstä reseptin pelkän kuvan avulla! \n\n Ei muuta ku kokkailemaan! \n\nThis is the KokkiBotti application, designed to help you plan a weekly menu. No need to wonder every day, “What should we eat today?”! On the inspiration page, you can generate new recipes to try out. Our AI Chef helps you create a recipe from the contents of your fridge using just a single photo! \n\nTime to start cooking!"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
     </LinearLayout>
